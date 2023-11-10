@@ -1,0 +1,72 @@
+/*CREAR Y REMOVER USUARIOS UTILIZANDO USERADD Y ADDUSER*/
+
+MÉTODO UNO CON USERADD
+
+sudo useradd -d /home/usuario -m usuario
+
+Con la opción -d indicamos que se desea crear un directorio para este usuario.
+Directorio /home/usuario del usuario. 
+El indicador -m indicamos al sistema que cree el directorio durante el proceso.
+Esto para evitar crear el directorio manualmente despues.
+Indicamos el nombre del usuario
+
+Una ves creado el usuario podemos uitlizar el siguiente comando
+    ls -l /home
+este permite consultar los usuarios creados.
+
+Cambiar la contraseña al usuario nuevo mediante
+sudo passwd nombreUsuario
+
+MÉTODO DOS CON ADDUSER
+
+sudo adduser nombre_usuario
+
+Este comando provee una función más complej al realizar la mayoria de los procedimientos
+de manera automatica así mismo permte copiar los archivos de /etc/skel disponible tambine con el primer comando
+Proporciona una forma de estar seguro de que todos los nuevos usuarios de tu sistema LFS tienen la misma configuración inicial. 
+El directorio /etc/skel es usado por el programa /usr/sbin/useradd.
+
+EXPLORANDO ADDUSER
+Es un shell script, es decir un archivo de texto que puede ejecutarse como un programa.
+PUNTOS IMPORTANTES
+* Este scrip esta escrito en Perl que suele ocuparse para determinadas tareas administrativas.
+* No debe modificarse
+* Puede abrise y para ver el contenido que se ejecuta.
+
+Comando para explorar dicho script
+
+nano /usr/sbin/adduser
+
+REMOVER USUARIOS
+
+De forma predeterminada, el comando userdel no elimina el contenido del 
+directorio de inicio del usuario. 
+
+sudo userdel nombre_usuario
+
+Al eliminar el usuario el contenido asociado al usuario se mantine
+por lo que podemos mover esa información a otro directorio.
+
+creamos el directorio
+sudo mkdir -p /store/archivos
+ -p crea el directorio principal si aún no existe.
+
+mover a directorio
+sudo mv /home/user /store/archivos
+
+Si quieres eliminar al usuario y sus datos asociados
+utiliza el siguiente comando
+sudo userdel -r nombreUsuario
+Si primero eliminaste el usuario y despues quieres eliminar el directorio /home
+utiliza sudo rm -r /home/usuario
+
+Comprobar que pasa si ejcutas el siguiente comando
+sudo rm -r / home/usuario
+
+
+Mostrar el contenido de /etc/passwd y /etc/shadow
+
+cat /etc/passwd //Cualquier usuario pueder ver este contenido
+sudo cat /etc/shadow //Solo root
+
+Nota: El comando cat en Linux permite concatenar y mostrar el contenido de archivos. 
